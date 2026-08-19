@@ -1,0 +1,554 @@
+/* =========================================================
+   Design tokens
+   ========================================================= */
+:root {
+  --bg: #121316;
+  --surface: #1c1e24;
+  --surface-alt: #23262e;
+  --border: #2e313b;
+  --text: #f3f1ea;
+  --text-muted: #9195a3;
+  --accent: #e1523d;      /* shu-iro — rouge vermillon japonais */
+  --accent-dim: #7a2e24;
+  --success: #43b77e;
+  --success-dim: #1f3f30;
+  --error: #e1523d;
+  --error-dim: #40201c;
+
+  --font-display: "Shippori Mincho", serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "Space Mono", ui-monospace, monospace;
+
+  --radius: 18px;
+  --radius-sm: 10px;
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  overscroll-behavior-y: none;
+}
+
+button {
+  font-family: inherit;
+}
+
+#app {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* =========================================================
+   Screens
+   ========================================================= */
+.screen {
+  display: none;
+  flex-direction: column;
+  flex: 1;
+  min-height: 100vh;
+  min-height: 100dvh;
+  animation: fade-in 0.22s ease;
+}
+
+.screen.active {
+  display: flex;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================================================
+   Topbar (quiz / allwords / stats / settings)
+   ========================================================= */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: max(14px, env(safe-area-inset-top)) 12px 12px;
+  gap: 8px;
+}
+
+.topbar-title {
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--text);
+}
+
+.icon-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 1.4rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.icon-btn:active { background: var(--surface-alt); }
+.icon-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.icon-btn-spacer { width: 44px; height: 44px; }
+
+.quiz-progress-text {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+/* =========================================================
+   Buttons
+   ========================================================= */
+.btn {
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 15px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.08s ease, opacity 0.15s ease, background 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn:active { transform: scale(0.97); }
+.btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.btn:disabled { opacity: 0.5; cursor: default; transform: none; }
+
+.btn-large { width: 100%; padding: 17px 20px; font-size: 1.05rem; }
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+}
+.btn-primary:active { background: #c94531; }
+
+.btn-secondary {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-muted);
+}
+
+.btn-danger {
+  background: var(--error);
+  color: #fff;
+}
+
+.btn-danger-outline {
+  background: transparent;
+  border: 1px solid var(--error);
+  color: var(--error);
+  width: 100%;
+}
+
+/* =========================================================
+   Accueil
+   ========================================================= */
+.home-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px 24px calc(24px + var(--safe-bottom));
+  gap: 6px;
+}
+
+.home-flag { font-size: 2.6rem; margin-bottom: 4px; }
+
+.home-title {
+  font-family: var(--font-display);
+  font-size: 2.1rem;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+.home-subtitle {
+  color: var(--text-muted);
+  margin: 6px 0 28px;
+  font-size: 1rem;
+}
+
+.home-progress {
+  width: 100%;
+  max-width: 320px;
+  margin-bottom: 34px;
+}
+
+.home-progress-label {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin: 0 0 10px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}
+
+.home-actions {
+  width: 100%;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* =========================================================
+   Quiz
+   ========================================================= */
+.quiz-body {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 20px;
+}
+
+.quiz-card {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 46px 26px;
+  text-align: center;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  overflow: hidden;
+}
+
+.quiz-card-label {
+  position: absolute;
+  top: 18px;
+  left: 22px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.quiz-french {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.quiz-feedback {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  min-height: 1.4em;
+}
+
+.quiz-feedback.correct { color: var(--success); }
+.quiz-feedback.incorrect { color: var(--error); }
+.quiz-feedback .fb-answer { color: var(--text); font-weight: 700; }
+
+/* Tampon "hanko" — animation de feedback correct */
+.hanko {
+  position: absolute;
+  right: 18px;
+  bottom: 14px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 3px solid var(--accent);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  opacity: 0;
+  transform: scale(2.4) rotate(-18deg);
+  pointer-events: none;
+}
+
+.hanko.stamp {
+  animation: hanko-stamp 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.2) forwards;
+}
+
+@keyframes hanko-stamp {
+  0% { opacity: 0; transform: scale(2.4) rotate(-18deg); }
+  55% { opacity: 0.9; transform: scale(0.92) rotate(-10deg); }
+  75% { transform: scale(1.05) rotate(-10deg); }
+  100% { opacity: 0.95; transform: scale(1) rotate(-10deg); }
+}
+
+.quiz-card.shake { animation: card-shake 0.32s ease; }
+
+@keyframes card-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-8px); }
+  75% { transform: translateX(8px); }
+}
+
+.quiz-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 20px calc(18px + var(--safe-bottom));
+}
+
+.quiz-input {
+  width: 100%;
+  padding: 16px 18px;
+  font-size: 1.15rem;
+  font-family: var(--font-mono);
+  border-radius: var(--radius-sm);
+  border: 2px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+}
+
+.quiz-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.quiz-input.correct { border-color: var(--success); }
+.quiz-input.incorrect { border-color: var(--error); }
+
+/* =========================================================
+   Tous les mots
+   ========================================================= */
+.list-wrap {
+  flex: 1;
+  overflow-y: auto;
+  padding: 4px 16px calc(24px + var(--safe-bottom));
+}
+
+.word-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.word-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+}
+
+.word-row-main {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  min-width: 0;
+}
+
+.word-row-id {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  width: 26px;
+}
+
+.word-row-fr {
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.word-row-romaji {
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.badge {
+  flex-shrink: 0;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 5px 9px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.badge-new { background: var(--surface-alt); color: var(--text-muted); }
+.badge-review { background: var(--accent-dim); color: #f3b3a6; }
+.badge-mastered { background: var(--success-dim); color: #8fe0bb; }
+
+/* =========================================================
+   Statistiques
+   ========================================================= */
+.stats-wrap {
+  flex: 1;
+  padding: 8px 20px calc(24px + var(--safe-bottom));
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.stat-label { color: var(--text-muted); font-size: 0.95rem; }
+.stat-value { font-family: var(--font-mono); font-weight: 700; font-size: 1.15rem; }
+
+/* =========================================================
+   Paramètres
+   ========================================================= */
+.settings-wrap {
+  flex: 1;
+  padding: 12px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.settings-hint {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+/* =========================================================
+   Fin de session
+   ========================================================= */
+.summary-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px 24px calc(24px + var(--safe-bottom));
+  gap: 4px;
+}
+
+.summary-emoji { font-size: 2.6rem; }
+
+.summary-title {
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  margin: 4px 0 20px;
+}
+
+.summary-stats {
+  width: 100%;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.summary-review {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  margin: 0 0 26px;
+  min-height: 1.2em;
+}
+
+.summary-actions {
+  width: 100%;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* =========================================================
+   Modale reset
+   ========================================================= */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 50;
+}
+
+.modal-overlay.hidden { display: none; }
+
+.modal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  width: 100%;
+  max-width: 360px;
+}
+
+.modal-text { font-weight: 600; margin: 0 0 8px; }
+.modal-subtext { color: var(--text-muted); font-size: 0.88rem; margin: 0 0 20px; }
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+}
+.modal-actions .btn { flex: 1; }
+
+/* =========================================================
+   Accessibilité
+   ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+}
+
+::selection { background: var(--accent-dim); color: var(--text); }
